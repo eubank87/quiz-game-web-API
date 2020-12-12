@@ -7,7 +7,7 @@ var choices = Array.from(document.getElementsByClassName("choice-text"));
 // need to create variable for current question. Leaving empty bracktes so it can become an object we work with later on
 var currentQuestion = {};
 // need a variable for answers so we can create a small delay in between questions
-var acceptingAnswers = true;
+var acceptingAnswers = false;
 // need variable to track score
 var score = 0;
 // need variable to track questions
@@ -15,7 +15,7 @@ var questionCounter = 0;
 // need an empty array for available questions, so when we loop over this during game play, a new random question is generated for user
 var availableQuestions = [];
 
-// create variable consisting of array with possible questions/answers
+// create variable consisting of array with possible questions/answers. Each question will be an object (which is why we made our currentQuestion var an empty object {}), and will have a question field, 4 choices and an answer- set to the index of the correct answer; because question is a part of the object, the first question has an index of 1(not 0).
 var quizQuestions = [
     {
         question: "What are the 3 main types of pollution humans contribute to every day?",
@@ -58,3 +58,45 @@ var quizQuestions = [
         answer: 4
     },
 ]
+
+// Need to crate contants for the game.
+var correctBonus = 10;
+var maxQuestions = 5;
+
+// need to create a function to start the game that sets the question counter and score to 0. Don't forget to call the function below.
+function startGame(){
+    questionCounter = 0;
+    score = 0;
+    // calling questions from the availableQuestions array and use the spread operator (...) so that we take the quizQuestions array, spread out each of it's items and then turn it back into an array.
+    availableQuestions = [...quizQuestions];
+    // console.log(availableQuestions);
+    // finally we need to call the function to get a new question- which will be created now...
+    getNewQuestion();
+}
+
+function getNewQuestion(){
+    // start with the question counter ++ so when we start the game we'll add 1 to the question counter
+    questionCounter++;
+    // now we need to grab a random question using the Math function. We multiply by the length of the array of available questions so we make sure we get a number that exists in our array. We also use the Math.floor method outside of the randomizing so we make sure it's a whole number that the computer knows to reference for each question index.
+    var questionIndex = Math.floor(Math.random() * availableQuestions.length);
+    // need reference to current question by pulling it from the available question array at the random index
+    currentQuestion = availableQuestions[questionIndex];
+    // now we want to print the current question to the screen so we tell it to make the variable question (which is attached to an h2 tag in html) equal to the current question we just established at the availableQuestion index.
+    question.innerText = currentQuestion.question;
+
+    // now we want to follow this same principle for each of our choices.
+    choices.forEach(choice =>{
+        // we need to create a variable so we can reference datatset in html 
+        var number = choice.dataset["number"];
+        // now we want to print the choices to the screen so they correspond to their individual choice number. So A matches with 1 and so on.
+        choice.innerText = currentQuestion["choice" + number];
+    });
+
+    // now we need to splice out the question we just used so it's not repeated using the splice() method.
+    availableQuestions.splice(questionIndex, 1);
+
+    // after we've loaded the question, we want to allow the user to answer. Set to false at top of screen so they can't answer before question is answered.
+    acceptingAnswers = true;
+}
+
+startGame();
