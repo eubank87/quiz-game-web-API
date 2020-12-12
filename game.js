@@ -34,27 +34,27 @@ var quizQuestions = [
         answer: 2
     },
     {
-        question: "",
-        choice1: "",
-        choice2: "",
-        choice3: "",
-        choice4: "",
-        answer: 
+        question: "What is global warming?",
+        choice1: "A steady rise in the Earth's average temperature.",
+        choice2: "A day we celebrate winter coats.",
+        choice3: "A made up hoax by the liberal media.",
+        choice4: "An art installation in NYC.",
+        answer: 1
     },
     {
-        question: "",
-        choice1: "",
-        choice2: "",
-        choice3: "",
-        choice4: "",
-        answer: 
+        question: "Each year an average of _______ gallons of untreated sewage waste, stormwater and industrail chemical waste are dumped into US water.",
+        choice1: "1,000",
+        choice2: "80 million",
+        choice3: "5",
+        choice4: "1.2 trillion",
+        answer: 4
     },
     {
-        question: "",
-        choice1: "",
-        choice2: "",
-        choice3: "",
-        choice4: "",
-        answer: 
+        question: "One small thing I can do to help pollution is...",
+        choice1: "recycle.",
+        choice2: "bring my own shopping bags to the grocery store.",
+        choice3: "use a reusable water bottle instead of buying a new plastic one every time.",
+        choice4: "All of the above.",
+        answer: 4
     },
 ]
