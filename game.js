@@ -3,6 +3,9 @@ var question = document.getElementById("question");
 // using the method Array.from to turn the html element into an array
 var choices = Array.from(document.getElementsByClassName("choice-text"));
 // console.log(choices);
+// need variables pulled from html for heads up display so we can dynamically update the info
+var questionCounterText = document.getElementById("questionCounter");
+var scoreText = document.getElementById("score");
 
 // need to create variable for current question. Leaving empty bracktes so it can become an object we work with later on
 var currentQuestion = {};
@@ -81,6 +84,9 @@ function getNewQuestion(){
     }
     // start with the question counter ++ so when we start the game we'll add 1 to the question counter
     questionCounter++;
+    // we also need to update the questionCounterText dynamically to be set to the current question
+    questionCounterText.innerText = questionCounter + "/" + maxQuestions;
+
     // now we need to grab a random question using the Math function. We multiply by the length of the array of available questions so we make sure we get a number that exists in our array. We also use the Math.floor method outside of the randomizing so we make sure it's a whole number that the computer knows to reference for each question index.
     var questionIndex = Math.floor(Math.random() * availableQuestions.length);
     // need reference to current question by pulling it from the available question array at the random index
@@ -117,13 +123,17 @@ choices.forEach(choice =>{
         // call the info by using data property with corresponding number
         var selectedAnswer = selectedChoice.dataset["number"];
 
-        // using the information above about whether an answer is correct or incorrect, we'll create variables to apply styling the corresponds: green for correct, red for wrong.
+        // using the information above about whether an answer is correct or incorrect, we'll create variables to apply styling that corresponds: green for correct, red for wrong.
         var classToApply = "incorrect";
         // create conditional so if the selected answer is right, it switches the answer button from it's default state of incorrect to correct.
         if(selectedAnswer == currentQuestion.answer){
             classToApply = "correct";
         }
-        console.log(classToApply);
+        // console.log(classToApply);
+        // creating conditional so if an answer's class is triggered to correct based on event listener, the score is incremented by the set amount in var correctBonus.
+        if(classToApply === "correct"){
+            imcrementScore(correctBonus);
+        };
 
         // now we want to apply newly created variable above to the entire container with the answer in it. We'll call on the parent of the selectedChoice.
         selectedChoice.parentElement.classList.add(classToApply);
@@ -138,7 +148,13 @@ choices.forEach(choice =>{
         // use console log to see if selected answer is equal to the correct answer. Can't use === need to use == because the dataset is set to a string and the answer is set to a number. === is a stright comparison, == is are they equal in definition. 
         // console.log(selectedAnswer == currentQuestion.answer);
         
-    })
-})
+    });
+});
+
+// need to create a function that increments the score and updates the score text with the new score. Need to call incrementScore function in the forEach loop with answers as a conditional so if an answer is right, the score goes up. 
+incrementScore = num =>{
+    score +=num;
+    scoreText.innerText = score;
+};
 
 startGame();
