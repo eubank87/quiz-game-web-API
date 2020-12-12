@@ -116,10 +116,28 @@ choices.forEach(choice =>{
         var selectedChoice = e.target;
         // call the info by using data property with corresponding number
         var selectedAnswer = selectedChoice.dataset["number"];
-        console.log(selectedAnswer);
 
-        // now we want to call the function to get a new question
-        getNewQuestion();
+        // using the information above about whether an answer is correct or incorrect, we'll create variables to apply styling the corresponds: green for correct, red for wrong.
+        var classToApply = "incorrect";
+        // create conditional so if the selected answer is right, it switches the answer button from it's default state of incorrect to correct.
+        if(selectedAnswer == currentQuestion.answer){
+            classToApply = "correct";
+        }
+        console.log(classToApply);
+
+        // now we want to apply newly created variable above to the entire container with the answer in it. We'll call on the parent of the selectedChoice.
+        selectedChoice.parentElement.classList.add(classToApply);
+        // need to do the same thing, but to remove the class so color is removed from next question. If these are listed back to back with no delay, they happen almost simultaneously and it's like nothing happened. and we want to call the function to get a new question.
+        setTimeout( () => {
+            selectedChoice.parentElement.classList.remove(classToApply);
+            getNewQuestion();
+        }, 300);
+        
+
+
+        // use console log to see if selected answer is equal to the correct answer. Can't use === need to use == because the dataset is set to a string and the answer is set to a number. === is a stright comparison, == is are they equal in definition. 
+        // console.log(selectedAnswer == currentQuestion.answer);
+        
     })
 })
 
