@@ -75,6 +75,10 @@ function startGame(){
 }
 
 function getNewQuestion(){
+    // create conditional so that if there are no more questions in the availableQuestion array or if the question counter hits above 5, we take the user to the location of the end of the game.
+    if(availableQuestions === 0 || questionCounter >= 5){
+        return window.location.assign("/end.html");
+    }
     // start with the question counter ++ so when we start the game we'll add 1 to the question counter
     questionCounter++;
     // now we need to grab a random question using the Math function. We multiply by the length of the array of available questions so we make sure we get a number that exists in our array. We also use the Math.floor method outside of the randomizing so we make sure it's a whole number that the computer knows to reference for each question index.
@@ -97,6 +101,26 @@ function getNewQuestion(){
 
     // after we've loaded the question, we want to allow the user to answer. Set to false at top of screen so they can't answer before question is answered.
     acceptingAnswers = true;
-}
+};
+
+// we need another for each loop outside of the function on choices so we can add an event listener that logs a choice when a button is clicked.
+choices.forEach(choice =>{
+    choice.addEventListener("click", e=>{
+        // need a conditional to start that will ignore clicks if we're not ready to accept answers
+        if(!acceptingAnswers){
+            return
+        }
+        // now we want to set accepting answers to false so we have a small delay before they start answering
+        acceptingAnswers = false;
+        // now we need variables so we can turn the click event on a particular choice to be read as the user's answer
+        var selectedChoice = e.target;
+        // call the info by using data property with corresponding number
+        var selectedAnswer = selectedChoice.dataset["number"];
+        console.log(selectedAnswer);
+
+        // now we want to call the function to get a new question
+        getNewQuestion();
+    })
+})
 
 startGame();

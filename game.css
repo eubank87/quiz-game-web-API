@@ -25,4 +25,6 @@
 
 .choice-text{
     padding: 1.5rem;
+    /* need to make text 100% width of choice so no matter where we click on the box we'll alert the user event. */
+    width: 100%;
 }
