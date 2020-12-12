@@ -55,3 +55,53 @@ h3{
 .container > *{
     width: 100%;
 }
+
+.flex-column{
+    display: flex;
+    flex-direction: column;
+}
+
+.flex-center{
+    justify-content: center;
+    align-items: center;
+}
+
+.justify-center{
+    justify-content: center;
+}
+
+.text-center{
+    text-align: center;
+}
+
+.hidden{
+    display: none;
+}
+
+/* BUTTONS */
+.btn{
+    font-size: 1.8rem;
+    padding: 1rem 0;
+    width: 20rem;
+    text-align: center;
+    border: 0.1rem solid #56a5eb;
+    margin-bottom: 1rem;
+    text-decoration: none; /*by default anchor tags are underlined, but we don't want that*/
+    color: #56a5eb;
+    background-color: white;
+}
+
+/* moving the button up a small amount and adding shadow for effect when we hover over the buttons */
+.btn:hover{
+    cursor: pointer;
+    box-shadow: 0 0.4rem 1.4rem 0 blue;
+    transform: translateY(-0.5rem);
+    transition: 150ms;
+} 
+
+.btn[disabled]:hover{
+    cursor: not-allowed;
+    box-shadow: none;
+    transform: none;
+}
+
