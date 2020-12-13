@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Congrats!</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <div id="end" class="flex-center flex-column">
+            <h1 id="finalScore">0</h1>
+            <!-- need to put a "form" into this div so user can enter score information. Delete default action, as we'll set that up ourselves in js -->
+            <form>
+                <!-- create input field for user's username. Added id and placeholder both with username -->
+                <input type="text" name="username" id="username" placeholder="username">
+                <!-- create a submit button. Give same class as other buttons for styling, give id of saveScoreBtn to reference in js later on. Also adding an "onclick" event to a function we will write in js for saving high scores. Also set this button to disabled so user can only press if input field has been filled out -->
+                <button type="submit" class="btn" id="saveScoreBtn" onclick="saveHighScore(event)" disabled>Save</button>
+            </form>
+            <!-- adding anchor tags underneath to redirect to either play again, or go to the home screen -->
+            <a class="btn" href="game.html">Play Again</a>
+            <a class="btn" href="index.html">Go Home</a>
+        </div>
+    </div>
+
+    <script src="end.js"></script>
+</body>
+</html>

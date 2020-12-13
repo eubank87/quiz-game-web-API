@@ -1,5 +1,5 @@
-// need to create variables to reference pieces from the html page. Could give each choice a unique id name, OR use query selector to reference by entire class BUT! Need to go back into html and give each choice a "data-number" so we can differentiate between them when selecting entire class.
-var question = document.getElementById("question");
+// need to create variables to reference pieces from the html page. Could give each choice a unique id name, OR use query selector to reference by entire class BUT! Need to go back into html and give each choice a "data-number" so we can differentiate between them if selecting entire class.
+var question = document.getElementById("question"); 
 // using the method Array.from to turn the html element into an array
 var choices = Array.from(document.getElementsByClassName("choice-text"));
 // console.log(choices);
@@ -7,7 +7,8 @@ var choices = Array.from(document.getElementsByClassName("choice-text"));
 var questionCounterText = document.getElementById("questionCounter");
 var scoreText = document.getElementById("score");
 
-// need to create variable for current question. Leaving empty bracktes so it can become an object we work with later on
+
+// need to create variable for current question. Leaving empty brackets so it can become an object we work with later on
 var currentQuestion = {};
 // need a variable for answers so we can create a small delay in between questions
 var acceptingAnswers = false;
@@ -53,16 +54,16 @@ var quizQuestions = [
         answer: 4
     },
     {
-        question: "One small thing I can do to help pollution is...",
+        question: "Something small I can do to help pollution is...",
         choice1: "recycle.",
         choice2: "bring my own shopping bags to the grocery store.",
         choice3: "use a reusable water bottle instead of buying a new plastic one every time.",
         choice4: "All of the above.",
         answer: 4
-    },
+    }
 ]
 
-// Need to crate contants for the game.
+// Need to create constants for the game.
 var correctBonus = 10;
 var maxQuestions = 5;
 
@@ -80,7 +81,9 @@ function startGame(){
 function getNewQuestion(){
     // create conditional so that if there are no more questions in the availableQuestion array or if the question counter hits above 5, we take the user to the location of the end of the game.
     if(availableQuestions === 0 || questionCounter >= 5){
-        return window.location.assign("/end.html");
+        // when game ends we want to save the user's score so we can access it in the end screen. We'll set an item to local storage, giving it a new var name (mostRecentScore) and attaching a value(score).
+        localStorage.setItem("mostRecentScore", score);
+        return window.location.assign("end.html");
     }
     // start with the question counter ++ so when we start the game we'll add 1 to the question counter
     questionCounter++;
@@ -128,14 +131,13 @@ choices.forEach(choice =>{
         // create conditional so if the selected answer is right, it switches the answer button from it's default state of incorrect to correct.
         if(selectedAnswer == currentQuestion.answer){
             classToApply = "correct";
+                    // creating conditional so if an answer's class is triggered to correct based on event listener, the score is incremented by the set amount in var correctBonus.
+            incrementScore(correctBonus);
         }
         // console.log(classToApply);
-        // creating conditional so if an answer's class is triggered to correct based on event listener, the score is incremented by the set amount in var correctBonus.
-        if(classToApply === "correct"){
-            imcrementScore(correctBonus);
-        };
+        
 
-        // now we want to apply newly created variable above to the entire container with the answer in it. We'll call on the parent of the selectedChoice.
+        // now we want to apply newly created variable above for color changing selections to the entire container with the answer in it. We'll call on the parent of the selectedChoice.
         selectedChoice.parentElement.classList.add(classToApply);
         // need to do the same thing, but to remove the class so color is removed from next question. If these are listed back to back with no delay, they happen almost simultaneously and it's like nothing happened. and we want to call the function to get a new question.
         setTimeout( () => {
